@@ -36,7 +36,25 @@ app.get("/", (req, res) => {
 });
 
 
+
 app.get("/search", async function (req, res) {
+  try{
+    TorrentSearchApi.enablePublicProviders();
+    // const torrentIndexer = new TorrentIndexer();
+
+  var query = req.query.q;
+  
+  toor1 = await TorrentSearchApi.search(query);
+  
+    res.json(toor1);
+
+  } catch (ss) {
+    res.json(ss);
+  }
+  });
+
+
+app.get("/searchAll", async function (req, res) {
   try{
     TorrentSearchApi.enablePublicProviders();
     // const torrentIndexer = new TorrentIndexer();
