@@ -61,8 +61,8 @@ router.get("/nyaa", async function (req, res) {
         res.status(204).end();
     }
 } catch (e) {
-    res.send(e);
-  }
+    res.status(204).end();
+}
 });
 
 module.exports = router;

@@ -17,8 +17,8 @@ router.get("/kickass_mg", async (req, res) => {
         res.status(204).end();
     }
 } catch (e) {
-    res.send(e);
-  }
+    res.status(204).end();
+}
 });
 
 router.get("/kickass", async function (req, res) {
@@ -86,8 +86,8 @@ router.get("/kickass", async function (req, res) {
         res.status(204).end();
     }
 } catch (e) {
-    res.send(e);
-  }
+    res.status(204).end();
+}
 });
 
 

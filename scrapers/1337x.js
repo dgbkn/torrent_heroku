@@ -60,8 +60,8 @@ router.get("/1337x", async function (req, res) {
         res.status(204).end();
     }
 } catch (e) {
-    res.send(e);
-  }
+    res.status(204).end();
+}
 });
 
 router.get("/1337x_mg", async function (req, res) {
@@ -84,8 +84,8 @@ router.get("/1337x_mg", async function (req, res) {
     }
 
 } catch (e) {
-    res.send(e);
-  }
+    res.status(204).end();
+}
 });
 
 module.exports = router;

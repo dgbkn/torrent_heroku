@@ -43,7 +43,7 @@ router.get("/rarbg", async function (req, res) {
 
 
     } catch (e) {
-        res.send(e);
+        res.status(204).end();
       }
 });
 
