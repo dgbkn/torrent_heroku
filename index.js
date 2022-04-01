@@ -13,8 +13,8 @@ const { default: axios } = require("axios");
 const TorrentSearchApi = require('torrent-search-api');
 
 const TorrentIndexer = require("torrent-indexer");
-var cloudscraper = require('cloudscraper');
 
+const cloudflareScraper = require('cloudflare-scraper');
 
 
 app.use(cors());
@@ -71,7 +71,7 @@ app.get("/search", async function (req, res) {
     try{
   
     var query = req.query.q;
-    var results = await cloudscraper.get('https://bt4g.org/search/'+encodeURIComponent(query));
+    var results = await cloudflareScraper.get('https://bt4g.org/search/'+encodeURIComponent(query));
           
       res.send(results);
   
