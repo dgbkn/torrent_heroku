@@ -14,7 +14,7 @@ const TorrentSearchApi = require('torrent-search-api');
 
 const TorrentIndexer = require("torrent-indexer");
 
-const cloudflareScraper = require('cloudflare-scraper');
+// const cloudflareScraper = require('cloudflare-scraper');
 
 
 
@@ -68,20 +68,20 @@ app.get("/search", async function (req, res) {
   });
 
 
-  app.get("/bt4g", async function (req, res) {
-    try{
+  // app.get("/bt4g", async function (req, res) {
+  //   try{
   
-    var query = req.query.q;
-    var results = await cloudflareScraper.get('https://bt4g.org/search/'+encodeURIComponent(query));
+  //   var query = req.query.q;
+  //   var results = await cloudflareScraper.get('https://bt4g.org/search/'+encodeURIComponent(query));
           
-      res.send(results);
+  //     res.send(results);
   
-    } catch (ss) {
-      res.json(ss);
-    }
-    });
+  //   } catch (ss) {
+  //     res.json(ss);
+  //   }
+  //   });
 
-    
+
 
 
 
