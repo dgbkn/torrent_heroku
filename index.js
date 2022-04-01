@@ -16,6 +16,8 @@ const TorrentIndexer = require("torrent-indexer");
 
 const cloudflareScraper = require('cloudflare-scraper');
 
+const Humanoid = require("humanoid-js");
+
 
 app.use(cors());
 
@@ -79,6 +81,21 @@ app.get("/search", async function (req, res) {
       res.json(ss);
     }
     });
+
+
+    app.get("/bt4galt", async function (req, res) {
+      try{
+    
+      var query = req.query.q;
+      let response = await humanoid.sendRequest('https://bt4g.org/search/'+encodeURIComponent(query));
+      res.send(response);
+    
+      } catch (ss) {
+        res.json(ss);
+      }
+      });
+
+
 
 
 app.use((req, res, next) => {
