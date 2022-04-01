@@ -16,9 +16,32 @@ const TorrentIndexer = require("torrent-indexer");
 
 // const cloudflareScraper = require('cloudflare-scraper');
 
-
+const Scraper_1337x = require("./scrapers/1337x.js");
+const skytorrent = require("./scrapers/skytorrents.js");
+const rarbg = require("./scrapers/rarbg.js");
+const kickass = require("./scrapers/kickass.js");
+const limetorrents = require("./scrapers/limetorrents.js");
+const torrentgalaxy = require("./scrapers/torrent_galaxy.js");
+const torrentdownloads = require("./scrapers/torrentdownloads.js");
+const nyaa = require("./scrapers/nyaa.js");
+const thepiratebay = require("./scrapers/thepiratebay.js");
+const horriblesubs = require("./scrapers/horriblesubs.js");
 
 app.use(cors());
+
+app.use("/api", Scraper_1337x);
+app.use("/api", skytorrent);
+app.use("/api", rarbg);
+app.use("/api", kickass);
+app.use("/api", limetorrents);
+app.use("/api", torrentgalaxy);
+app.use("/api", torrentdownloads);
+app.use("/api", nyaa);
+app.use("/api", thepiratebay);
+app.use("/api", horriblesubs);
+
+
+
 
 
 app.get("/", (req, res) => {
@@ -104,11 +127,11 @@ app.get("/searchAll", async function (req, res) {
 
 
 
-app.use((req, res, next) => {
-  const error = new Error("Not found");
-  error.status = 404;
-  next(error);
-});
+// app.use((req, res, next) => {
+//   const error = new Error("Not found");
+//   error.status = 404;
+//   next(error);
+// });
 
 // error handler middleware
 app.use((error, req, res, next) => {

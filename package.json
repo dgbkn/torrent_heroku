@@ -4,20 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+   "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.1",
-    "cloudflare-scraper": "^1.0.8",
-    "cloudscraper": "^4.6.0",
+    "cheerio": "^1.0.0-rc.10",
     "cors": "^2.8.5",
     "express": "^4.17.3",
+    "filesize": "^8.0.7",
+    "forever": "^4.0.3",
     "form-data": "^4.0.0",
     "nodemon": "^2.0.15",
-    "puppeteer": "^13.5.2",
     "querystring": "^0.2.1",
+    "rarbg-api": "^1.1.4",
     "request": "^2.88.2",
     "torrent-indexer": "^1.2.1",
     "torrent-search-api": "^2.1.4"
