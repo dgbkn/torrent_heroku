@@ -39,7 +39,7 @@ router.get("/1337x", async function (req, res) {
 
             //  url
             url =
-                "https://1337x.to" +
+                "https://1337xx.to" +
                 $(element).find("td.coll-1.name > a:nth-child(2)").attr("href");
 
             jsonResult.push({
