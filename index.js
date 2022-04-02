@@ -7,9 +7,9 @@ const app = express();
 var cors = require("cors");
 var os = require("os");
 var querystring = require('querystring');
-const isMagnet = require("./utils/misc_utils.js").isMagnet;
+const isMagnet = require("./scrapers/utils/misc_utils.js").isMagnet;
 const cheerio = require("cheerio");
-const BASE_URL = require("./constants").BASE_URL_1337X;
+const BASE_URL = require("./scrapers/constants").BASE_URL_1337X;
 
 const { default: axios } = require("axios");
 
@@ -71,7 +71,7 @@ app.get("/api/search", async function (req, res) {
     var query = req.query.search.trim();
 
     toor1 = await TorrentSearchApi.search(query);
-    var tott = toor1.map((it) => {
+    var tott = toor1.map(async (it) =>{
 
       var magnet = it?.magnet;
 
