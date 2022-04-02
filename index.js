@@ -74,7 +74,9 @@ app.get("/api/search", async function (req, res) {
       "leechers":it.peers,
       "name":it.title,
       "seeders":it.seeds,
-      
+"upload_date":it.time,
+"uploader":"",
+"website":it.provider
 
   }
  });
