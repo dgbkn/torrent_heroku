@@ -71,8 +71,10 @@ app.get("/api/search", async function (req, res) {
     var query = req.query.search.trim();
 
     toor1 = await TorrentSearchApi.search(query);
-    var tott = toor1.map(async (it) =>{
 
+    var finalTor = [];
+
+    for (let i = 0; i < cars.length; i++) {
       var magnet = it?.magnet;
 
       if (it.provider == "1337x") {
@@ -99,7 +101,7 @@ app.get("/api/search", async function (req, res) {
         }
       }
 
-      return {
+      finalTor.push( {
         ...it,
         "leechers": it.peers,
         "name": it.title,
@@ -110,9 +112,13 @@ app.get("/api/search", async function (req, res) {
         "magnet": magnet,
         "torrent_url": it.link ? it.link : it.desc.replace('1337x', '1337xx')
 
-      }
-    });
-    res.json({ "data": tott });
+      });
+
+    
+    }
+
+    
+    res.json({ "data": finalTor });
 
   } catch (ss) {
     res.json(ss);
