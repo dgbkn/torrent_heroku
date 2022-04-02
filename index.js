@@ -80,7 +80,7 @@ app.get("/api/search", async function (req, res) {
 
   }
  });
-    res.json(toor1);
+    res.json(tott);
 
   } catch (ss) {
     res.json(ss);
