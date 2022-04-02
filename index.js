@@ -7,6 +7,9 @@ const app = express();
 var cors = require("cors");
 var os = require("os");
 var querystring = require('querystring');
+const isMagnet = require("./utils/misc_utils.js").isMagnet;
+const cheerio = require("cheerio");
+const BASE_URL = require("./constants").BASE_URL_1337X;
 
 const { default: axios } = require("axios");
 
@@ -61,78 +64,106 @@ app.get("/", (req, res) => {
 
 
 app.get("/api/search", async function (req, res) {
-  try{
+  try {
     TorrentSearchApi.enablePublicProviders();
     // const torrentIndexer = new TorrentIndexer();
 
     var query = req.query.search.trim();
-  
-  toor1 = await TorrentSearchApi.search(query);
-  var tott = toor1.map((it)=>{
-    return {
-      ...it,
-      "leechers":it.peers,
-      "name":it.title,
-      "seeders":it.seeds,
-"upload_date":it.time,
-"uploader":"",
-"website":it.provider,
-      "torrent_url":it.link ? it.link : it.desc.replace('1337x','1337xx')
 
-  }
- });
-    res.json({"data":tott});
+    toor1 = await TorrentSearchApi.search(query);
+    var tott = toor1.map((it) => {
+
+      var magnet = it.magnet;
+
+      if (it.provider == "1337x") {
+
+        try {
+          var url = it.desc;
+          response = await axios.get(url.replace('x','xx')).catch((err) => {
+            console.log(err);
+            res.status(204).end();
+          });
+          if (response != undefined) {
+            $ = cheerio.load(response.data);
+            magnet = $(".clearfix ul li a").attr("href");
+            if (isMagnet(magnet)) {
+             magnet = magnet;
+            } else {
+              magnet = "";
+            }
+          } else {
+            magnet = "";
+          }
+        } catch (e) {
+          magnet = "";
+        }
+      }
+
+      return {
+        ...it,
+        "leechers": it.peers,
+        "name": it.title,
+        "seeders": it.seeds,
+        "upload_date": it.time,
+        "uploader": "",
+        "website": it.provider,
+        "magnet": magnet,
+        "torrent_url": it.link ? it.link : it.desc.replace('1337x', '1337xx')
+
+      }
+    });
+    res.json({ "data": tott });
 
   } catch (ss) {
     res.json(ss);
   }
-  });
+});
 
 
 app.get("/search", async function (req, res) {
-  try{
+  try {
     TorrentSearchApi.enablePublicProviders();
     // const torrentIndexer = new TorrentIndexer();
 
-  var query = req.query.q;
-  
-  var toor1 = {};
-  var toor2 = {};
-  var toor3 = {};
+    var query = req.query.q;
 
-  toor1 = await TorrentSearchApi.search(query);
-  // torr2 = await torrentIndexer.search(query);
-  toor3 = await axios.post("http://35.232.241.212:8080/search",querystring.stringify({"type":"search","query":query}), {
-    headers: { 
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
-  });
+    var toor1 = {};
+    var toor2 = {};
+    var toor3 = {};
 
-  // console.log(toor3);
+    toor1 = await TorrentSearchApi.search(query);
+    // torr2 = await torrentIndexer.search(query);
+    toor3 = await axios.post("http://35.232.241.212:8080/search", querystring.stringify({ "type": "search", "query": query }), {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    });
+
+    // console.log(toor3);
 
 
-  var torrents = {"toorSearch":toor1,"toorindex":toor2,"oldschool":toor3.data};
-  
+    var torrents = { "toorSearch": toor1, "toorindex": toor2, "oldschool": toor3.data };
+
     res.json(torrents);
 
   } catch (ss) {
     res.json(ss);
   }
-  });
+});
 
 
-  // app.get("/bt4g", async function (req, res) {
-  //   try{
-  
-  //   var query = req.query.q;
-  //   var results = await cloudflareScraper.get('https://bt4g.org/search/'+encodeURIComponent(query));
-          
-  //     res.send(results);
-  
-  //   } catch (ss) {
-  //     res.json(ss);
-  //   }
-  //   });
+// app.get("/bt4g", async function (req, res) {
+//   try{
+
+//   var query = req.query.q;
+//   var results = await cloudflareScraper.get('https://bt4g.org/search/'+encodeURIComponent(query));
+
+//     res.send(results);
+
+//   } catch (ss) {
+//     res.json(ss);
+//   }
+//   });
 
 
 
