@@ -76,7 +76,8 @@ app.get("/api/search", async function (req, res) {
       "seeders":it.seeds,
 "upload_date":it.time,
 "uploader":"",
-"website":it.provider
+"website":it.provider,
+      "torrent_url":it.link
 
   }
  });
