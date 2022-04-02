@@ -73,15 +73,15 @@ app.get("/api/search", async function (req, res) {
     toor1 = await TorrentSearchApi.search(query);
     var tott = toor1.map((it) => {
 
-      var magnet = it.magnet;
+      var magnet = it?.magnet;
 
       if (it.provider == "1337x") {
 
         try {
-          var url = it.desc;
+          var url = it?.desc;
           response = await axios.get(url.replace('x','xx')).catch((err) => {
             console.log(err);
-            res.status(204).end();
+              magnet = "";
           });
           if (response != undefined) {
             $ = cheerio.load(response.data);
