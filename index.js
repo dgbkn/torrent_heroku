@@ -74,13 +74,13 @@ app.get("/api/search", async function (req, res) {
 
     var finalTor = [];
 
-    for (let i = 0; i < cars.length; i++) {
-      var magnet = it?.magnet;
+    for (let i = 0; i < toor1.length; i++) {
+      var magnet = toor1[i]?.magnet;
 
-      if (it.provider == "1337x") {
+      if (toor1[i].provider == "1337x") {
 
         try {
-          var url = it?.desc;
+          var url = toor1[i]?.desc;
           response = await axios.get(url.replace('x','xx')).catch((err) => {
             console.log(err);
               magnet = "";
@@ -102,15 +102,15 @@ app.get("/api/search", async function (req, res) {
       }
 
       finalTor.push( {
-        ...it,
-        "leechers": it.peers,
-        "name": it.title,
-        "seeders": it.seeds,
-        "upload_date": it.time,
+        ...toor1[i],
+        "leechers": toor1[i].peers,
+        "name": toor1[i].title,
+        "seeders": toor1[i].seeds,
+        "upload_date": toor1[i].time,
         "uploader": "",
-        "website": it.provider,
+        "website": toor1[i].provider,
         "magnet": magnet,
-        "torrent_url": it.link ? it.link : it?.desc?.replace('1337x', '1337xx')
+        "torrent_url": toor1[i].link ? toor1[i].link : toor1[i]?.desc?.replace('1337x', '1337xx')
 
       });
 
