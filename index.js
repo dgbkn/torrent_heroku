@@ -110,7 +110,7 @@ app.get("/api/search", async function (req, res) {
         "uploader": "",
         "website": it.provider,
         "magnet": magnet,
-        "torrent_url": it.link ? it.link : it.desc.replace('1337x', '1337xx')
+        "torrent_url": it.link ? it.link : it?.desc?.replace('1337x', '1337xx')
 
       });
 
