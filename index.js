@@ -65,7 +65,7 @@ app.get("/api/search", async function (req, res) {
     TorrentSearchApi.enablePublicProviders();
     // const torrentIndexer = new TorrentIndexer();
 
-  var query = req.query.q;
+    var query = req.query.search.trim();
   
   toor1 = await TorrentSearchApi.search(query);
   var tott = toor1.map((it)=>{
