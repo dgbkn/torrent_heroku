@@ -77,7 +77,7 @@ app.get("/api/search", async function (req, res) {
 "upload_date":it.time,
 "uploader":"",
 "website":it.provider,
-      "torrent_url":it.link
+      "torrent_url":it.link ? it.link : it.desc.replace('1337x','1337xx')
 
   }
  });
